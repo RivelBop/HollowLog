@@ -40,6 +40,14 @@ To use HollowLog in your C++ project, follow these steps:
    HollowLog::debug("%x", 255);
    HollowLog::trace("%s Some Number: %d", "This is a trace message.", 43);
     ```
+   OR (using categories)
+   ```cpp
+   HollowLog::errorCat("Category", "%s", "This is an error message.");
+   HollowLog::warnCat("SomeCategory", "This is a warning message.");
+   HollowLog::infoCat("IDK", "%f", 3.14);
+   HollowLog::debugCat(":0", "This is a debug message.");
+   HollowLog::traceCat("XD", "%s Some Number: %d", "This is a trace message.", 43);
+   ```
 If you want to change the log level at any point in your application, simply call the
 ```set()``` or ```specify()``` function again with the desired log level(s). 
 
@@ -48,5 +56,4 @@ That's it! You can now log messages in your C++ application using HollowLog!
 # Work in Progress
 HollowLog is currently a work in progress. Future updates may include additional features such as: 
 - File Logging
-- Log Categories
 - And More?

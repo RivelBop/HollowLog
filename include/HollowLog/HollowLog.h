@@ -37,50 +37,80 @@ public:
     // Logs error messages to the console
     template<typename... T>
     static void error(const std::string &format, T... params) {
-    	static const std::string color = "\033[1;31m";
-    	static const std::string levelTag = " [ERROR]: ";
         if (errorFlag) {
-            log(color, levelTag, format, params...);
+            log(errorColor, errorTag, format, params...);
+        }
+    }
+
+    // Logs error messages with categories to the console
+    template<typename... T>
+    static void errorCat(const std::string &category, const std::string &format, T... params) {
+        if (errorFlag) {
+            log(errorColor, errorTag + "[" + category + "] ", format, params...);
         }
     }
 
     // Logs warning messages to the console
     template<typename... T>
     static void warn(const std::string &format, T... params) {
-    	static const std::string color = "\033[1;33m";
-    	static const std::string levelTag = " [WARN]: ";
         if (warnFlag) {
-            log(color, levelTag, format, params...);
+            log(warnColor, warnTag, format, params...);
+        }
+    }
+
+    // Logs warning messages with categories to the console
+    template<typename... T>
+    static void warnCat(const std::string &category, const std::string &format, T... params) {
+        if (warnFlag) {
+            log(warnColor, warnTag + "[" + category + "] ", format, params...);
         }
     }
 
     // Logs info messages to the console
     template<typename... T>
     static void info(const std::string &format, T... params) {
-    	static const std::string color = "\033[1;34m";
-       	static const std::string levelTag = " [INFO]: ";
         if (infoFlag) {
-            log(color, levelTag, format, params...);
+            log(infoColor, infoTag, format, params...);
         }
-    } 
+    }
+
+    // Logs info messages with categories to the console
+    template<typename... T>
+    static void infoCat(const std::string &category, const std::string &format, T... params) {
+        if (infoFlag) {
+            log(infoColor, infoTag + "[" + category + "] ", format, params...);
+        }
+    }
 
     // Logs debug messages to the console
     template<typename... T>
     static void debug(const std::string &format, T... params) {
-    	static const std::string color = "\033[1;32m";
-       	static const std::string levelTag = " [DEBUG]: ";
         if (debugFlag) {
-            log(color, levelTag, format, params...);
+            log(debugColor, debugTag, format, params...);
+        }
+    }
+
+    // Logs debug messages with categories to the console
+    template<typename... T>
+    static void debugCat(const std::string &category, const std::string &format, T... params) {
+        if (debugFlag) {
+            log(debugColor, debugTag + "[" + category + "] ", format, params...);
         }
     }
 
     // Logs trace messages to the console
     template<typename... T>
     static void trace(const std::string &format, T... params) {
-    	static const std::string color = "\033[1;37m";
-       	static const std::string levelTag = " [TRACE]: ";
         if (traceFlag) {
-            log(color, levelTag, format, params...);
+            log(traceColor, traceTag, format, params...);
+        }
+    }
+
+    // Logs trace messages with categories to the console
+    template<typename... T>
+    static void traceCat(const std::string &category, const std::string &format, T... params) {
+        if (traceFlag) {
+            log(traceColor, traceTag + "[" + category + "] ", format, params...);
         }
     }
 
@@ -94,6 +124,20 @@ private:
     inline static bool infoFlag  = false;
     inline static bool debugFlag = false;
     inline static bool traceFlag = false;
+
+    // Cache the colors for each level
+    inline static const char *errorColor = "\033[1;31m";
+    inline static const char *warnColor  = "\033[1;33m";
+    inline static const char *infoColor  = "\033[1;34m";
+    inline static const char *debugColor = "\033[1;32m";
+    inline static const char *traceColor = "\033[1;37m";
+
+    // Cache the tag for each level
+    inline static const std::string errorTag = " ERROR: ";
+    inline static const std::string warnTag  = " WARN: ";
+    inline static const std::string infoTag  = " INFO: ";
+    inline static const std::string debugTag = " DEBUG: ";
+    inline static const std::string traceTag = " TRACE: ";
 
     // Updates the status of each level based on the selected level
     static void updateLevel() {
@@ -112,7 +156,7 @@ private:
 
     // Logs a message to the console
     template<typename... T>
-    static void log(const std::string &color, const std::string &levelTag, const std::string &format, T... params) {
+    static void log(const char *color, const std::string &levelTag, const std::string &format, T... params) {
         // Lock the mutex (unlocked when it goes out of scope) for thread-safety
         std::lock_guard<std::mutex> lock(logMutex);
 
