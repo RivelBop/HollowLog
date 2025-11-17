@@ -121,14 +121,14 @@ public:
 
 private:
     // Keep track of the current level
-    inline static unsigned char level = INFO;
+    inline static unsigned char level = (INFO << 1) - 1;
 
     // Cache the flag check for each level
-    inline static bool errorFlag = false;
-    inline static bool warnFlag  = false;
-    inline static bool infoFlag  = false;
-    inline static bool debugFlag = false;
-    inline static bool traceFlag = false;
+    inline static bool errorFlag = level & ERROR;
+    inline static bool warnFlag  = level & WARN;
+    inline static bool infoFlag  = level & INFO;
+    inline static bool debugFlag = level & DEBUG;
+    inline static bool traceFlag = level & TRACE;
 
     // Cache the colors for each level
     inline static const char *errorColor = "\033[1;31m";
