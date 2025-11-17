@@ -16,7 +16,7 @@ To use HollowLog in your C++ project, follow these steps:
    ```cpp
    #include "HollowLog/HollowLog.h"
    ```
-3. To log messages, start by setting/specifying the initial log level (ERROR, WARN, INFO, DEBUG, TRACE):
+3. To log messages, start by setting/specifying the initial log level (ERROR, WARN, INFO = default, DEBUG, TRACE):
    ```cpp
    HollowLog::set(HollowLog::YOUR_LOG_LEVEL);
    ```

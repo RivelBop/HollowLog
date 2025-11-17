@@ -22,16 +22,21 @@ public:
     // Static class - Deconstructor is not needed
     ~HollowLog() = delete;
 
+    // Logs levels <= the specified level
+    static void set(Level aLevel) {
+        level = (aLevel << 1) - 1;
+        updateLevel();
+    }
+
     // ONLY logs the specified levels
     static void specify(unsigned char levels) {
         level = levels;
         updateLevel();
     }
 
-    // Logs levels <= the specified level
-    static void set(Level aLevel) {
-        level = (aLevel << 1) - 1;
-        updateLevel();
+    // Returns the current log level
+    static unsigned char getLevel() {
+    	return level;
     }
 
     // Logs error messages to the console
@@ -116,7 +121,7 @@ public:
 
 private:
     // Keep track of the current level
-    inline static unsigned char level = NONE;
+    inline static unsigned char level = INFO;
 
     // Cache the flag check for each level
     inline static bool errorFlag = false;
